@@ -4,17 +4,14 @@ var mongoose = require("mongoose");
 
 const app = express();
 
-const Productroute = require('./routes/productroute');
-app.use('/products', Productroute);
-
-
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
 mongoose.connect("mongodb+srv://sreejamohan444:S2YTkp1oTEeOiBqV@cluster0.mwlsecd.mongodb.net/crudchallengedb", {useNewUrlParser: true, useUnifiedTopology: true});
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', ()=>
 {
     console.log("Error in connecting to the Server");
@@ -24,30 +21,37 @@ db.once('open',()=>
     console.log("Connected to Database");
 });
 
-app.post("/addproducts", (req,res)=>
-{
-    var id = req.body.id;
-    var pname = req.body.name;
-    var count = req.body.count;
-    var price = req.body.price; 
+const Productroute = require('./routes/productroute');
+app.use('/products', Productroute);
 
-var data = {
-    "id": id,
-    "name": pname,
-    "count": count,
-    "price": price
-}
-
-db.collection('products').insertOne(data, (err, products)=>
+app.listen(5000, ()=>
 {
-    if(err)
-    {
-        throw err;
-    }
-   console.log("Product Successfully added to the Database");
+    console.log("Listening on Port 5000");
 });
-return res.redirect('index.html');
-})
+// app.post("/addproducts", (req,res)=>
+// {
+//     var id = req.body.id;
+//     var pname = req.body.name;
+//     var count = req.body.count;
+//     var price = req.body.price; 
+
+// var data = {
+//     "id": id,
+//     "name": pname,
+//     "count": count,
+//     "price": price
+// }
+
+// db.collection('products').insertOne(data, (err, products)=>
+// {
+//     if(err)
+//     {
+//         throw err;
+//     }
+//    console.log("Product Successfully added to the Database");
+// });
+// return res.redirect('index.html');
+// })
 
 
 // app.get("/", (req,res)=>
@@ -57,4 +61,3 @@ return res.redirect('index.html');
 //     return res.redirect('index.html');
 // }).listen(3000); from 1st youtube video
 
-console.log("Listening on Port 5000");
