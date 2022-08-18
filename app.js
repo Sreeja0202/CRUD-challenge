@@ -4,6 +4,10 @@ var mongoose = require("mongoose");
 
 const app = express();
 
+const Productroute = require('./routes/productroute');
+app.use('/products', Productroute);
+
+
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -45,11 +49,12 @@ db.collection('products').insertOne(data, (err, products)=>
 return res.redirect('index.html');
 })
 
-app.get("/", (req,res)=>
-{
-    // res.send("Hello from Server");
-    res.set({"Allow-access-Allow-Origin":'*'});
-    return res.redirect('index.html');
-}).listen(3000);
 
-console.log("Listening on Port 3000");
+// app.get("/", (req,res)=>
+// {
+//     // res.send("Hello from Server");
+//     res.set({"Allow-access-Allow-Origin":'*'});
+//     return res.redirect('index.html');
+// }).listen(3000); from 1st youtube video
+
+console.log("Listening on Port 5000");

@@ -1,0 +1,14 @@
+
+GET http://localhost:5000/products
+
+### create a product
+POST http://localhost:5000/products
+
+### Get a product by its id
+GET http://localhost:5000/id
+
+### Update a product by its id
+PATCH  http://localhost:5000/id
+
+### Delete a product by its id
+DELETE  http://localhost:5000/id
