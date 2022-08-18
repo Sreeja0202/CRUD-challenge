@@ -34,7 +34,7 @@ var data = {
     "price": price
 }
 
-db.collection('products').insertOne(data, (err, collection)=>
+db.collection('products').insertOne(data, (err, products)=>
 {
     if(err)
     {
